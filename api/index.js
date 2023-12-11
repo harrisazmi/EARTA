@@ -20,3 +20,5 @@ app.listen(3333);
 
 //username - user1
 //password - user1
+
+//model for user, split into a new folder for easier handling
