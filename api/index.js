@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const UserModel = require('./models/User');
 const jwt = require('jsonwebtoken');
+const cors = require('cors');
 
 //const mongourl = 'mongodb+srv://user1:user1@cluster0.o1lspnq.mongodb.net/?retryWrites=true&w=majority';
 //password inside is not good practice, therefore put in .env
@@ -12,7 +13,12 @@ dotenv.config();
 //console.log(process.env.MONGO_URL); check for process, is it there?
 mongoose.connect(process.env.MONGO_URL);
 jwtSecret = process.env.JWT_SECRET;
+app.use(express.json());
 
+app.use(cors({
+    credentials: true,
+    origin: process.env.CLIENT_URL,
+}));
 
 
 app.get('/test', (req, res) => {
@@ -22,7 +28,7 @@ app.get('/test', (req, res) => {
 app.post('/register', async (req, res) => {
     const { username, password } = req.body;
     const createdUser = await UserModel.create({ username, password });
-    jwt.sign({ userId: createdUser._id }, jwtSecret, (err, token) => {
+    jwt.sign({ userId: createdUser._id }, jwtSecret, {}, (err, token) => {
         if (err) throw err;
         res.cookie('token', token).status(201).json('ok');
     }) //._id is for mangoose 1st index
