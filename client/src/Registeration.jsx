@@ -4,12 +4,15 @@ export default function Registration() {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    async function register() {
+        await axios.post('/register', { username, password });
+    }
 
     return (
 
         <div className='flex justify-center items-center h-screen bg-blue-600'>
 
-            <div className='w-96 p-6 shadow-lg bg-white rounded-md'>
+            <form className='w-96 p-6 shadow-lg bg-white rounded-md' onSubmit={register}>
                 <h1 className='text-3xl block text-center font-semibold'>Registration</h1>
                 <hr></hr>
                 <div className='mt-3'>
@@ -27,7 +30,7 @@ export default function Registration() {
                 <div className='mt-5'>
                     <button type='submit' className='flex justify-center items-center border-2 bg-orange-500 text-black py-1 px-5 w-full'>Register</button>
                 </div>
-            </div>
+            </form>
 
         </div>
     );
