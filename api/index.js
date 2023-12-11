@@ -8,6 +8,9 @@ const dotenv = require('dotenv');
 // install dotenv
 dotenv.config();
 //console.log(process.env.MONGO_URL); check for process, is it there?
+mongoose.connect(process.env.MONGO_URL);
+
+
 
 app.get('/test', (req, res) => {
     res.json('test ok')
