@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
-const userModel = require('./models/User');
+const UserModel = require('./models/User');
 const jwt = require('jsonwebtoken');
 
 //const mongourl = 'mongodb+srv://user1:user1@cluster0.o1lspnq.mongodb.net/?retryWrites=true&w=majority';
@@ -21,7 +21,7 @@ app.get('/test', (req, res) => {
 
 app.post('/register', async (req, res) => {
     const { username, password } = req.body;
-    const createdUser = await userModel.create({ username, password });
+    const createdUser = await UserModel.create({ username, password });
     jwt.sign({ userId: createdUser._id }, jwtSecret, (err, token) => {
         if (err) throw err;
         res.cookie('token', token).status(201).json('ok');
