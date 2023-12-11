@@ -1,35 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Registration from "./Registeration";
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Registration />
+
+    // <div className='flex justify-center items-center h-screen bg-blue-600'>
+
+    //   <div className='w-96 p-6 shadow-lg bg-white rounded-md'>
+    //     <h1 className='text-3xl block text-center font-semibold'>Registration</h1>
+    //     <hr></hr>
+    //     <div className='mt-3'>
+    //       <label for='Username' className='block text-base mb-2'>Username</label>
+    //       <input value={username}
+    //         onChange={ev => setUsername(ev, target.value)}
+    //         type="text" id='Username' className='border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600' placeholder='Enter User Name...'></input>
+    //     </div>
+    //     <div className='mt-3'>
+    //       <label for='Password' className='block text-base mb-2'>Password</label>
+    //       <input value={password}
+    //         onChange={ev => setPassword(ev, target.value)}
+    //         type="text" id='Password' className='border w-full text-base px-2 py-1 focus:outline-none focus:ring-0 focus:border-gray-600' placeholder='Enter Password...'></input>
+    //     </div>
+    //     <div className='mt-5'>
+    //       <button type='submit' className='flex justify-center items-center border-2 bg-orange-500 text-black py-1 px-5 w-full'>Register</button>
+    //     </div>
+    //   </div>
+
+    // </div>
+  );
 }
 
 export default App
