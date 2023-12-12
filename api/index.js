@@ -11,7 +11,24 @@ const cors = require('cors');
 // install dotenv
 dotenv.config();
 //console.log(process.env.MONGO_URL); check for process, is it there?
-mongoose.connect(process.env.MONGO_URL);
+
+
+async function connectToMongo() {
+    try {
+        await mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
+        console.log('Connected to MongoDB');
+    } catch (error) {
+        console.error('Error connecting to MongoDB:', error.message);
+        process.exit(1); // Exit the process if there is an error connecting to MongoDB
+    }
+}
+
+connectToMongo();
+
+// mongoose.connect(process.env.MONGO_URL, (err) => {
+//     if (err) throw err;
+// });
+
 jwtSecret = process.env.JWT_SECRET;
 app.use(express.json());
 
@@ -27,11 +44,19 @@ app.get('/test', (req, res) => {
 
 app.post('/register', async (req, res) => {
     const { username, password } = req.body;
-    const createdUser = await UserModel.create({ username, password });
-    jwt.sign({ userId: createdUser._id }, jwtSecret, {}, (err, token) => {
+    try {
+        const createdUser = await UserModel.create({ username, password });
+        jwt.sign({ userId: createdUser._id }, jwtSecret, {}, (err, token) => {
+            if (err) throw err;
+            res.cookie('token', token).status(201).json({
+                _id: createdUser._id,
+            });
+        }) //._id is for mangoose 1st index
+    } catch (err) {
         if (err) throw err;
-        res.cookie('token', token).status(201).json('ok');
-    }) //._id is for mangoose 1st index
+    }
+
+
 });
 
 
